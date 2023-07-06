@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en-US" class=" ">
+<head>
+    <title>Willaman Solutions</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<link rel="stylesheet" href="stoplight.css">
+<div style="width: 500px; justify-self: center; justify-content: center;">
+    <social id="truck_id_social" style="color: white; font-size: 30px;">TRUCK ID: <label id="truck_id"></label></social>
+</div><br><br>
+<div class="trafficlight">
+    <div class="protector"></div>
+    <div class="protector"></div>
+    <div class="protector"></div>
+    <div id="red_div" class="red_div"></div>
+    <div id="yellow_div" class="yellow_div"></div>
+    <div id="green_div" class="green_div"></div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        setInterval(function() {
+            $.getJSON("./data.json", function(data){
+                document.getElementById('truck_id').innerHTML = data.truck_id;
+                // document.body.style.background = data.color_code;
+                if (data.color === 'red') {
+                    red_div.style.opacity = 1;
+                    yellow_div.style.opacity = 0.15;
+                    green_div.style.opacity = 0.15;
+                } else if (data.color === 'yellow') {
+                    red_div.style.opacity = 0.15;
+                    yellow_div.style.opacity = 1;
+                    green_div.style.opacity = 0.15;
+                } else if (data.color === 'green') {
+                    red_div.style.opacity = 0.15;
+                    yellow_div.style.opacity = 0.15;
+                    green_div.style.opacity = 1;
+                } else {
+                    red_div.style.opacity = 0.15;
+                    yellow_div.style.opacity = 0.15;
+                    green_div.style.opacity = 0.15;
+                }
+            }).fail(function(){
+                console.log("An error has occurred.");
+            });
+        }, 10);
+    });
+</script>
+</html>
